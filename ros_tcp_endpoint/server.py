@@ -122,7 +122,7 @@ class TcpServer(Node):
         if function is None:
             self.send_unity_error("Don't understand SysCommand.'{}'".format(topic))
         else:
-            message_json = data.decode("utf-8")[:-1]
+            message_json = data.decode("utf-8").strip("\x00\r\n\t ")
             params = json.loads(message_json)
             function(**params)
 
